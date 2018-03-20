@@ -1,0 +1,13 @@
+<div class="monitor {{$ctrl.classStatus}}">
+    <div class="shadow" ng-if="$ctrl.classStatus=='loading'"> 
+        <div class="loader">
+            <div class="mask"></div>
+        </div>​
+    </div>
+    <div class="watermark">{{$ctrl.watermark}}</div>
+    <!-- <div class="title">{{$ctrl.title}}</div> -->
+    <!-- <div class="query">{{$ctrl.query}}</div> -->
+    <div class="content">
+        <h2 class="eventCount">{{$ctrl.eventCount}}</h2>
+    </div>
+</div>

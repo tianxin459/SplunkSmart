@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ET Splunk Thermometer | Splunk</title>
+    <link rel="shortcut icon" href="https://gdcsplunksh04:8000/en-US/static/@245427/img/favicon.ico" />
+
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="Content/dashboard-simple-bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="Content/dashboard.css" rel="stylesheet" type="text/css"> -->
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://gdcsplunksh04:8000/en-US/static/@245427/css/build/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://gdcsplunksh04:8000/en-US/static/@245427/css/build/pages/dashboard-simple-bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" media="all" href="https://gdcsplunksh04:8000/en-US/static/@245427:185982/app/search/dashboard.css" /> -->
+    <!--[if IE 7]><link rel="stylesheet" href="/en-US/static/@245427/css/sprites-ie7.css" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="Content/vmonitor.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body class="simplexml locale-en">
+    <!-- 
+BEGIN LAYOUT
+This section contains the layout for the dashboard. Splunk uses proprietary
+styles in <div> tags, similar to Bootstrap's grid system. 
+-->
+    <a class="navSkip" href="#navSkip" tabindex="1">Screen reader users, click here to skip the navigation bar</a>
+    <div class="header splunk-header">
+        <div id="placeholder-splunk-bar">
+            <a href="https://gdcsplunksh04:8000/en-US/app/launcher/home" class="brand" title="splunk &gt; listen to your data">splunk
+                <strong>&gt;</strong>
+            </a>
+        </div>
+        <div id="placeholder-app-bar"></div>
+    </div>
+    <a id="navSkip"></a>
+    <div id="app" class="dashboard-body container-fluid main-section-body" data-role="main">
+        <div class="dashboard-header clearfix">
+            <h2>ET Splunk Thermometer V</h2>
+            <p class="description">Show the error log amount number</p>
+        </div>
+
+
+        <div id="row1" class="dashboard-row dashboard-row1">
+            <div id="panel1" class="dashboard-cell">
+                <div class="dashboard-panel clearfix">
+                    <monitor title="web" watermark="watermark" threshold="200" query="sourcetype=dev-AccountOrchestration" time-earliest='-3h'
+                        eventCount="loading..."></monitor>
+                </div>
+            </div>
+            <!-- <div id="panel2" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 2" watermark="watermark"  threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+            </div>
+        </div>
+
+        <div id="panel3" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 2" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+            </div>
+        </div> -->
+        </div>
+        <!-- <div id="row2" class="dashboard-row dashboard-row2">
+        <div id="panel3" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 3" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" eventCount="loading..."></monitor>
+            </div>
+        </div>
+        <div id="panel4" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 3" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" eventCount="loading..."></monitor>
+            </div>
+        </div>
+        <div id="panel3" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 2" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+            </div>
+        </div>
+    </div>
+    <div id="row3" class="dashboard-row dashboard-row2">
+            <div id="panel3" class="dashboard-cell">
+                <div class="dashboard-panel clearfix">
+                    <monitor title="monitor 4" watermark="watermark"  query="query 3" threshold="300" eventCount="loading..."></monitor>
+                </div>
+            </div>
+            <div id="panel4" class="dashboard-cell">
+                <div class="dashboard-panel clearfix">
+                    <monitor title="monitor 5" watermark="watermark"  query="query 3" threshold="100" eventCount="loading..."></monitor>
+                </div>
+            </div>
+            <div id="panel31" class="dashboard-cell">
+                <div class="dashboard-panel clearfix">
+                    <monitor title="monitor 6" watermark="watermark"  query="query 3" threshold="100" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    </div>
+    <div class="footer"></div>
+</body>
+
+</html>
+<!-- template -->
+<script type="text/x-template" id="comMonitor">
+    <div class="monitorContainor">
+        <div class="monitor">
+            <!-- <div class="shadow" ng-if="$ctrl.classStatus=='loading'">
+                <div class="loader">
+                    <div class="mask"></div>
+                </div>​
+            </div> -->
+            <div class="watermark">{{watermark}}</div>
+            <div class="content">
+                <h2 class="eventCount">{{eventCount}}</h2>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- <script src="templates/vMonitor.html" type="text/x-template" id="comMonitor2"></script> -->
+<!-- script -->
+<script>
+    Vue.component("monitor", {
+        template: '#comMonitor',
+        data() {
+            return {
+                watermark: '123',
+                eventCount:'999'
+            }
+        },
+    })
+
+    new Vue({
+        el: '#app'
+    })
+</script>

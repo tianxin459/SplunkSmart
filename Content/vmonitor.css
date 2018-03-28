@@ -1,3 +1,12 @@
+*{
+--warning-bg-color:#cc3300;
+--warning-color:#ffffff;
+--warning-watermark:#ffcc00;
+--normal-bg-color:rgb(101,166,55);
+--normal-color:#ffffff;
+--normal-watermark:#ffcc00;
+}
+
 .main-section-body{
     width: 90%;
     margin-left: auto;
@@ -9,38 +18,46 @@
     height: 20vh;
     margin: 2px;
 }
-.dashboard-panel{
+#app .dashboard-panel{
     height: 100%;
+    border: none;
+    background:none;
 }
 
-.monitorContainor *{
+.monitorContainor{
+    height: 20vh;
+}
+
+
+.monitorContainor .monitor{
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: center;
+    height: 100%;  
 }
 
 .monitorContainor .content{
     width: 100%;
     border: 1px solid yellow;
-    height: 10vh;
+    height: 100%;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .monitorContainor .monitor{
-    background-color: greenyellow;
     flex-direction: column;
     border-radius: 2px;
     height: 100%;
 }
 
-.monitorContainor div.warning{
-    background-color: red;
-    color: ghostwhite;
-}
 
 .monitorContainor .watermark{
     position: absolute;
-    /* top: -50px; */
+    display: flex;
+    justify-content: center;
     width: 100%;
     height: 100%;
     opacity: 0.2;
@@ -50,6 +67,9 @@
     transform: rotate(-20deg);
     color: blue;
 }
+.monitorContainor .watermark span{
+    align-self: center;
+}
 
 html {
 	background-image: linear-gradient(225deg, transparent 35%, hsla(192,0%,0%,0.6)),
@@ -57,6 +77,57 @@ html {
    min-height: 100%;
 }
 
+
+/*-------------------------- coin effort --------------------------*/
+.monitor{
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d; 
+    -webkit-transition: all 600ms;
+    transition: all 600ms; 
+}
+.monitor div.display.warning{
+    background-color:var(--warning-bg-color);
+    color: var(--warning-color);
+}
+
+
+.monitor div.display{
+    background: var(--normal-bg-color);
+    color:var(--normal-color);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.monitor.front{
+    transform: rotateX(180deg);
+    -webkit-transform: rotateX(180deg);
+}
+
+.monitor .front,
+.monitor .back{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 200px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 2px;
+}
+
+.monitor .front{
+    text-align: center;
+    line-height: 200px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 2px; 
+}
+.monitor .back{
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
+
+/*-------------------------- coin effort above --------------------------*/
 
 
 /*--------------------------loading css below ------------------------------------*/

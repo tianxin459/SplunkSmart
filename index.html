@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="https://gdcsplunksh04:8000/en-US/static/@245427/img/favicon.ico" />
 
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="Content/dashboard-simple-bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="Content/dashboard-simple-bootstrap.min.css" rel="stylesheet" type="text/CSS">
     <!-- <link href="Content/dashboard.css" rel="stylesheet" type="text/css"> -->
 
     <!-- <link rel="stylesheet" type="text/css" href="https://gdcsplunksh04:8000/en-US/static/@245427/css/build/bootstrap.min.css" /> -->
@@ -17,6 +17,8 @@
     <!--[if IE 7]><link rel="stylesheet" href="/en-US/static/@245427/css/sprites-ie7.css" /><![endif]-->
     <link rel="stylesheet" type="text/css" href="Content/vmonitor.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 
 <body class="simplexml locale-en">
@@ -41,27 +43,38 @@ styles in <div> tags, similar to Bootstrap's grid system.
             <p class="description">Show the error log amount number</p>
         </div>
 
-
-        <div id="row1" class="dashboard-row dashboard-row1">
+        <!-------------------------------------------Debug---------------------------------------------------------------->
+    <!--     <div id="row1" class="dashboard-row dashboard-row1">
             <div id="panel1" class="dashboard-cell">
                 <div class="dashboard-panel clearfix">
                     <monitor title="web" watermark="watermark" threshold="200" query="sourcetype=dev-AccountOrchestration" time-earliest='-3h'
-                        eventCount="loading..."></monitor>
+                             eventCount="loading..."></monitor>
                 </div>
             </div>
-            <!-- <div id="panel2" class="dashboard-cell">
+        </div> -->
+        <!-------------------------------------------Debug---------------------------------------------------------------->
+        <div id="row1" class="dashboard-row dashboard-row1">
+        <div id="panel1" class="dashboard-cell">
             <div class="dashboard-panel clearfix">
-                <monitor title="monitor 2" watermark="watermark"  threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+                <monitor title="web" watermark="API AO - 3h" threshold="20" query="sourcetype=dev-AccountOrchestration" time-earliest='-3h'
+                    eventCount="loading..."></monitor>
+            </div>
+        </div>
+        <div id="panel2" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 2" watermark="API AO - 6h" threshold="20" query="sourcetype=dev-AccountOrchestration" time-earliest='-6h'
+                    eventCount="loading..."></monitor>
             </div>
         </div>
 
         <div id="panel3" class="dashboard-cell">
             <div class="dashboard-panel clearfix">
-                <monitor title="monitor 2" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+                <monitor title="monitor 2" watermark="API AO - 9h" threshold="20" query="sourcetype=dev-AccountOrchestration" time-earliest='-9h'
+                    eventCount="loading..."></monitor>
             </div>
-        </div> -->
         </div>
-        <!-- <div id="row2" class="dashboard-row dashboard-row2">
+    </div>
+    <div id="row2" class="dashboard-row dashboard-row2">
         <div id="panel3" class="dashboard-cell">
             <div class="dashboard-panel clearfix">
                 <monitor title="monitor 3" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" eventCount="loading..."></monitor>
@@ -74,28 +87,30 @@ styles in <div> tags, similar to Bootstrap's grid system.
         </div>
         <div id="panel3" class="dashboard-cell">
             <div class="dashboard-panel clearfix">
-                <monitor title="monitor 2" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
+                <monitor title="monitor 2" watermark="watermark" threshold="300" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h'
+                    eventCount="loading..."></monitor>
             </div>
         </div>
     </div>
     <div id="row3" class="dashboard-row dashboard-row2">
-            <div id="panel3" class="dashboard-cell">
-                <div class="dashboard-panel clearfix">
-                    <monitor title="monitor 4" watermark="watermark"  query="query 3" threshold="300" eventCount="loading..."></monitor>
-                </div>
-            </div>
-            <div id="panel4" class="dashboard-cell">
-                <div class="dashboard-panel clearfix">
-                    <monitor title="monitor 5" watermark="watermark"  query="query 3" threshold="100" eventCount="loading..."></monitor>
-                </div>
-            </div>
-            <div id="panel31" class="dashboard-cell">
-                <div class="dashboard-panel clearfix">
-                    <monitor title="monitor 6" watermark="watermark"  query="query 3" threshold="100" query="sourcetype=dev-AccountOrchestration" time-earliest='-2h' eventCount="loading..."></monitor>
-                </div>
+        <div id="panel3" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 4" watermark="watermark" query="query 3" threshold="300" eventCount="loading..."></monitor>
             </div>
         </div>
-    </div> -->
+        <div id="panel4" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 5" watermark="watermark" query="query 3" threshold="100" eventCount="loading..."></monitor>
+            </div>
+        </div>
+        <div id="panel31" class="dashboard-cell">
+            <div class="dashboard-panel clearfix">
+                <monitor title="monitor 6" watermark="watermark" query="query 3" threshold="100" query="sourcetype=dev-AccountOrchestration"
+                    time-earliest='-2h' eventCount="loading..."></monitor>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
     <div class="footer"></div>
 </body>
@@ -104,15 +119,27 @@ styles in <div> tags, similar to Bootstrap's grid system.
 <!-- template -->
 <script type="text/x-template" id="comMonitor">
     <div class="monitorContainor">
-        <div class="monitor">
-            <!-- <div class="shadow" ng-if="$ctrl.classStatus=='loading'">
-                <div class="loader">
-                    <div class="mask"></div>
-                </div>​
-            </div> -->
-            <div class="watermark">{{watermark}}</div>
-            <div class="content">
-                <h2 class="eventCount">{{eventCount}}</h2>
+        <div class="monitor" :class="classObj">
+            <div class="display front" :class="classObjFront">
+                <div class="watermark">
+                    <span>{{watermark}}</span>
+                </div>
+                <div class="content">
+                    <h2 class="eventCount">{{eventCountF}}</h2>
+                </div>
+            </div>
+            <!-- <div class="middle" style="transform: translateZ(1px)"></div>
+            <div class="middle" style="transform: translateZ(2px)"></div>
+            <div class="middle" style="transform: translateZ(3px)"></div>
+            <div class="middle" style="transform: translateZ(4px)"></div>
+            <div class="middle" style="transform: translateZ(5px)"></div> -->
+            <div class="display back" :class="classObjBack">
+                <div class="watermark">
+                    <span>{{watermark}}</span>
+                </div>
+                <div class="content">
+                    <h2 class="eventCount">{{eventCountB}}</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -121,13 +148,88 @@ styles in <div> tags, similar to Bootstrap's grid system.
 <!-- <script src="templates/vMonitor.html" type="text/x-template" id="comMonitor2"></script> -->
 <!-- script -->
 <script>
+    // let urlPrefix = 'http://localhost/SplunkSmart/';
+    let urlPrefix = '';
+    let tryoutUrl = urlPrefix + 'Splunk';
+
     Vue.component("monitor", {
         template: '#comMonitor',
+        props: ['query', 'title', 'timeEarliest', 'threshold', 'watermark'],
         data() {
             return {
-                watermark: '123',
-                eventCount:'999'
+                eventCountF: 'Loading...',
+                eventCountB: 'Loading...',
+                isFront: true,
+                warningF: false,
+                warningB: false,
+                minInterval: 10000
             }
+        },
+        computed: {
+            classObj() {
+                return {
+                    front: this.isFront,
+                    warning: this.warning
+                }
+            },
+            classObjFront() {
+                return {
+                    warning: this.warningF
+                }
+            },
+            classObjBack() {
+                return {
+                    warning: this.warningB
+                }
+            }
+        },
+        methods: {
+            setEventCount(val) {
+                let that = this;
+                if (that.isFront) {
+                    that.eventCountF = val;
+                    that.warningF = Number(that.eventCountF) > Number(that.threshold);
+                } else {
+                    that.eventCountB = val;
+                    that.warningB = Number(that.eventCountB) > Number(that.threshold);
+                }
+                this.isFront = !this.isFront;
+                console.log(that.eventCountF, that.eventCountB, that.threshold, that.warningF, that.warningB);
+            },
+            //getSplunkData() {
+            //    console.log('getSplunkData');
+            //    let that = this;
+            //    axios.get(tryoutUrl)
+            //        .then(function (response) {
+            //            that.setEventCount(response.data);
+            //        })
+            //        .catch(function (error) {
+            //            console.error(error);
+            //        });
+            //},
+            setSplunkData(interval = 10000) {
+                let that = this;
+                if (interval < this.minInterval)
+                    interval = this.minInterval;
+                let lowerInterval = parseInt(interval - interval * 0.3);
+                let upperInterval = parseInt(interval + interval * 0.5);
+                _.delay((min, max) => {
+                    let url = tryoutUrl + `?query=${that.query}&timeEarliest=${that.timeEarliest}`;
+                    console.log(url);
+                    axios.get(url)
+                        .then(function (response) {
+                            that.setEventCount(response.data);
+                            let intervalNum = _.random(min, max, false);
+                            _.delay(that.setSplunkData, intervalNum, intervalNum);
+                        })
+                        .catch(function (error) {
+                            console.error(error);
+                        });
+                }, interval, lowerInterval, upperInterval)
+            }
+        },
+        mounted: function () {
+            this.setSplunkData(10 * 1000);
         },
     })
 
